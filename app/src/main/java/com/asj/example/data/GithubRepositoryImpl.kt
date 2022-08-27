@@ -4,8 +4,9 @@ import com.asj.example.core.GithubRepo
 import com.asj.example.core.GithubRepository
 import com.asj.example.core.GithubUser
 import com.asj.example.data.client.GithubApiClient
+import javax.inject.Inject
 
-class GithubRepositoryImpl(
+class GithubRepositoryImpl @Inject constructor(
     private val githubApiClient: GithubApiClient
 ): GithubRepository {
     override suspend fun findUser(username: String): GithubUser? {

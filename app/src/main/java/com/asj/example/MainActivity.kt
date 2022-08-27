@@ -11,15 +11,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
-import com.asj.example.data.client.GithubApiClient
-import com.asj.example.data.client.client
+import com.asj.example.core.GithubRepository
 import com.asj.example.ui.theme.AppTheme
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.launch
-import kotlinx.serialization.Serializable
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject lateinit var repository: GithubRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycleScope.launch {
+            val user = repository.findUser("jakewharton")
+            println("User = $user")
+        }
         setContent {
             AppTheme {
                 Surface(
