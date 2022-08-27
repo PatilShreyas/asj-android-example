@@ -1,5 +1,6 @@
 package com.asj.example.data.client
 
+import com.asj.example.data.model.GithubUserRepoResponse
 import com.asj.example.data.model.GithubUserResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -12,6 +13,10 @@ import kotlinx.serialization.json.Json
 class GithubApiClient(private val httpClient: HttpClient) {
     suspend fun findUser(username: String): GithubUserResponse {
         return httpClient.get(urlString = "https://api.github.com/users/$username").body()
+    }
+
+    suspend fun getUserRepos(username: String): List<GithubUserRepoResponse> {
+        return httpClient.get(urlString = "https://api.github.com/users/$username/repos").body()
     }
 }
 

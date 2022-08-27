@@ -1,5 +1,6 @@
 package com.asj.example.data
 
+import com.asj.example.core.GithubRepo
 import com.asj.example.core.GithubRepository
 import com.asj.example.core.GithubUser
 import com.asj.example.data.client.GithubApiClient
@@ -23,6 +24,21 @@ class GithubRepositoryImpl(
             )
         } catch (error: Throwable) {
             return null
+        }
+    }
+
+    override suspend fun getUserRepos(username: String): List<GithubRepo> {
+        try {
+             return githubApiClient.getUserRepos(username).map { response ->
+                GithubRepo(
+                    name = response.name,
+                    description = response.description,
+                    stars = response.stars,
+                    watchers = response.watchers
+                )
+            }
+        } catch (error: Throwable) {
+            return emptyList()
         }
     }
 }
