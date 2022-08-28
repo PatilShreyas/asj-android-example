@@ -16,7 +16,7 @@ class GithubRepositoryImpl @Inject constructor(
                 username = response.login,
                 profileUrl = response.avatarUrl,
                 type = response.type,
-                name = response.name,
+                name = response.name ?: "NA",
                 companyName = response.companyName,
                 location = response.location,
                 bio = response.bio,
@@ -24,6 +24,7 @@ class GithubRepositoryImpl @Inject constructor(
                 followers = response.followers
             )
         } catch (error: Throwable) {
+            error.printStackTrace()
             return null
         }
     }

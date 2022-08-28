@@ -15,7 +15,7 @@ data class GithubUserResponse(
     val type: String,
 
     @SerialName("name")
-    val name: String,
+    val name: String?,
 
     @SerialName("company")
     val companyName: String?,
